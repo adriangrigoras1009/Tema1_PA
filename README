@@ -1,0 +1,101 @@
+Grigoras Adrian, 322CC
+Tema 1 PA
+
+----------------------------------------------------
+
+1) Crypto.java
+Am realizat o sortare descrescatoare a calculatoarelor in functie de numarul de criptomonede pe care le face intr-o ora
+Folosesc un vector de suma de upgrade, pentru fiecare un anumit numar de calculatoare
+Folosesc vectorul de suma_max in care tin cati bani s-au cheltuit pana acum
+Apoi parcurg vectorul de calculatoare aplicand urmatorul rationament:
+	- daca sunt 2 calculatoare care au puteri diferite
+	creste suma_max cu suma_de_upgrade calculata anterior * diferenta de putere
+	- daca sunt calculatoare cu aceeasi putere, doar cresc suma_max
+	- suma_upgrade creste cu fiecare iteratie
+	- daca suma_max depaseste numarul de bani ne oprim.
+daca suma_max a depasit numarul de bani:
+	scadem din suma_max obtinuta numarul de bani 
+	impartim la suma_upgrade de dinainte de ulltimul update. 
+	Scadem asta din max
+daca inca e sub numarul de bani si a ajuns la final
+	crestem numarul de calculatoare de pana acum cu:
+	diferenta dintre banii cheltuiti si suma-max de pana acu impartit la ultima 		suma de upgrade
+
+Complexitate = O(n log n)
+
+
+2.Stocks.java
+Am facut o matrice tridimensionala dp pentru a tine cont de restrictii
+initial, punem 0 pe fiecare element al primei matrici
+Apoi, parcurgem elementele fiecare matrici:
+	copiem elementele matricei in urmatoare
+	dar daca dif dintre iteratorul de buget si valoarea curenta e mai mare decat 0
+	si daca dif dintre iteratorul de pierdere si pierderea actiunii curente e > 0
+		calculez o sol auxiliara din elementul acela matricea precedenta +
+		profitul pe care il are din actiune
+		alegem maximul dintre solutia auxiliara, si cea din matricea precedenta
+la final returnam ultimele pozitii din matrice
+
+Complexitate = O(N*B*L)
+
+3.Valley.java
+Parcurg tot vectorul de inaltimi, caut inaltimea cea mai mica si o salvez.
+Parcurg vectorul de la inceput la cea mai mica inaltime
+	daca inaltimea curenta e mai mare ca cea de dinainte
+		creste numarul de ore cu diferenta dintre cele 2 inaltimi
+		inaltimea devine mai mica
+Parcurg vectorul de la final la cea mai mica inaltime
+	daca inaltimea curenta e mai mare decat cea de dinainte acelasi rationament
+la final returnez numarul de ore strans
+
+Complexitate = O(N)
+
+4.Ridge.java
+Folosesc o matrice dp pentru a retine fiecare posibilitate de a excava un varf
+Avem doar 2 posibilitati de a schimba 2 varfuri adiacente:
+	fie scadem inaltimea cu 1
+	fie scadem inaltimea cu 2(daca cel de dinainte e egal cu inaltimea-1)
+
+asa ca am facut o matrice de N pe 3
+Prima oara salvez pe prima linie 0, cost, cost*2
+apoi parcurg fiecare varf si daca diferenta e mai mare decat 0
+folosesc un j de la 0 la 3
+	daca diferenta dintre inaltime si j e egala cu inaltimea de dinainte
+		aleg minimul dintre coloana 1 si 2
+	daca diferenta dintre inaltime si j e egala cu inaltimea de dinainte - 1
+		aleg minimul dintre coloana 0 si 2
+	daca diferenta dintre inaltime si j e egala cu inaltimea de dinainte - 2
+		aleg minimul dintre coloana 0 si 1
+	apoi dp = j*costul de excavat + minimul ales
+daca diferenta e mai mica decat 0
+	dp = j*cost + un numar foarte mare
+
+la final returnez minimul ultimei linii
+
+Complexitate = O(N)
+
+5.Trigigel.java
+Am folosit 2 functii din laborator de ridicat matrici la putere in timp logaritmic
+Am gasit recurenta pentru cele care se termina 0, 1 si 2
+dp[i] = dp[i-1] + dp[i-3] + 1, i >= 4 dp avand numarul de siruri care se termina cu 0, 1 sau 2
+Am format matrice C
+Daca n-1 se imparte la 3
+	pentru cele care se termina in 0, ridic matrice la n-2
+	pentru cele care se termina in 1, ridic matricea la n-4
+	pnetru cele care se termina in 2, ridic matricea la n-3
+	adun ultimele coloane de la fiecare matrice si scad 1
+Daca n-2 se imparte la 3
+	pentru cele care se termina in 0, ridic matricea la n-3
+	pentru cele care se termina in 1, ridic matricea la n-2
+	pentru cele care se termina in 2, ridic matricea la n-4
+	adun ultimele coloane de la fiecare matrice si scad 1
+Daca n-3 se impartea la 3
+	pentru cele care se termina in 0, ridic matricea la n-4
+	pentru cele care se termina in 1, ridic matricea la n-3
+	pentru cele care se termina in 2, ridic matricea la n-2
+	adun ultimele coloane de la fiecare matrice si scad 1
+La final adun sumele fiecare coloane din cele 3 matrici.
+
+Complexitate = O(27 * log N)
+	
+	
